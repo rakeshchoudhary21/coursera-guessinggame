@@ -11,17 +11,23 @@ function checkGuess {
 run=true
 while ($run)
 do
-	check=$(checkGuess $guess)
-	if [[ $check -eq 0 ]]
-	then
-		echo 'Congrats you guessed right'
-		run=false
-	elif [[ $check -gt 0 ]]
+	if [[ $guess =~ [0-9] ]]
 	then 
-		echo 'Too high... Lets guess again'
-		read guess
+		check=$(checkGuess $guess)
+		if [[ $check -eq 0 ]]
+		then
+			echo 'Congrats you guessed right'
+			run=false
+		elif [[ $check -gt 0 ]]
+		then 
+			echo 'Too high... Lets guess again'
+			read guess
+		else
+			echo 'Too low... Lets guess again'
+			read guess
+		fi
 	else
-		echo 'Too low... Lets guess again'
+		echo "$guess is not a number... Lets guess again"
 		read guess
 	fi
 done
